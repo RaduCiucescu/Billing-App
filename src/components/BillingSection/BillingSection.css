@@ -120,11 +120,51 @@
     font-size: 20px;
     color: var(--lightGreen);
 }
-.history-of-payments-and-stats-section{
-    display: flex;
-    justify-content: center;
-   
-    gap: 400px;
+
+/* Stats */
+.stats-title-container{
+    margin-top: 40px;
+    margin-bottom: 40px;
+   display: flex;
+   justify-content: center;
+}
+.avg-form{
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.10);
+    padding: 24px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.avg-result-container{
+    background-color: var(--darkGreen);
+    padding: 24px;
+    border-radius: 16px;
+    margin-bottom: 6px;
+    margin-top: 6px;
+}
+.avg-title-content{
+    margin-bottom: 12px;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+}
+.avg-result-content{
+    color: var(--lightGreen);
+    font-size: 18px;
+    font-weight: 600;
+}
+/* History */
+
+.history-section{
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.10);
+    padding: 24px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .history-of-payments-title{
@@ -133,7 +173,7 @@
   
 }
 .history-of-payments-list{
-    color: var(--darkGreen);
+    color: var(--lightGreen);
     margin-top: 16px;
     font-weight: 700;
    
@@ -146,16 +186,20 @@
 }
 .stats-title{
     color: var(--darkGreen);
-    margin-top: 24px;
 }
-.stats-title{
-    color: var(--darkGreen);
-    margin-top: 16px;
+ul{
+    padding-left: 16px;
 }
-.date-for-stats{
-    color: var(--darkGreen);
-    margin-top: 16px;
-    font-size: 24px;
+.history-form{
+    display:grid;
+    grid-template-columns: 1fr;
+}
+.history-form .avg-title-content{
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+.history-form .avg-title-content:last-of-type{
+    margin-bottom: 20px;
 }
 @media screen and (min-width: 768px) {
     .billing-container {
@@ -170,10 +214,25 @@
         width: calc(50% - 48px);
         margin-top: 0px;
     }
+    .avg-form{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .avg-result-container{
+        width: 150px;
+    }
+    .history-form{
+        display:grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }
 
 @media screen and (min-width: 1024px) {
     .tip-options {
         grid-template-columns: 1fr 1fr 1fr;
+    }
+    .avg-result-container{
+        width: 220px;
     }
 }

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import './BillingSection.css';
 import userIcon from '../../assets/icons/user.svg';
+import BillingResult from "../BillingResult/BillingResult";
+import AverageForm from "../AverageForm/AverageForm";
+import HistoryElement from "../HistoryElement/HistoryElement";
 
 const tipOptions = [5, 10, 15, 25, 50];
 
@@ -34,7 +37,8 @@ const BillingSection = () => {
             ...history,{
             bill: bill,
             tip: tipTotal,
-            persons: numberOfPeople
+            persons: numberOfPeople,
+            date: getDate()
     }])
 
     };
@@ -61,6 +65,17 @@ const BillingSection = () => {
     }
         return average / history.length;
     }
+
+    const getAveragePerson = () => {
+       
+        let average = 0;
+
+        for(let i =0; i < history.length; i++){
+        average += history[i].persons;
+    }
+        return average / history.length;
+    }
+
     const getAverageBillAmountPerPerson = () => {
        
         let average = 0;
@@ -114,48 +129,41 @@ const BillingSection = () => {
                     <button type="submit" className="calculate-billing"> Calculate </button>
                 </form>
                 <div className="billing-result-container">
-                    <div className="billing-result">
-                        <div>
-                            <p className="billing-result-heading"> Tip Amount </p>
-                            <p className="billing-result-sub-heading"> /person </p>
-                        </div>
-                        <p className="billing-result-number"> ${tipAmount} </p>
-                    </div>
-                    <div className="billing-result">
-                        <div>
-                            <p className="billing-result-heading"> Total </p>
-                            <p className="billing-result-sub-heading"> /person </p>
-                        </div>
-                        <p className="billing-result-number"> ${totalAmount} </p>
-                    </div>
+                    <BillingResult name={"Tip"} amount={tipAmount.toFixed(2)}/>
+                    <BillingResult name={"Total"} amount={totalAmount.toFixed(2)}/>
                 </div>
             </div>
 
-            <div className="history-of-payments-and-stats-section">             
-            <div >         
-                <ul> 
-                    {history.map((order) => (
-                       <div key={order}>
-                        <h2 className="history-of-payments-title">History of payments</h2>
-                            <li className="history-of-payments-list"> Bill:{order.bill}$ </li> 
-                            <li className="history-of-payments-list">Tip: {order.tip} $</li> 
-                            <li className="history-of-payments-list">Number of persons: {order.persons} person</li>
-                         </div>       
-                    ))}
-                </ul>
-            </div> 
             <div className={history.length >= 1 ? 'display-history' : 'do-not-display-history' }>
-                <h2 className="stats-title"> Stats: </h2>
-                 <h3 className="stats-title"> Average bill: {getAverageBillAmount()} </h3> 
-                 <h3 className="stats-title"> Average tip: {getAverageTipAmount()} </h3>
-                 <h3 className="stats-title"> Average bill per person: {getAverageBillAmountPerPerson()} </h3>
-                 <h3 className="stats-title"> Average tip per person: {getAverageTipAmountPerPerson()} </h3>
-                 <h3 className="date-for-stats"> Date for the stats: {getDate()}</h3>
-            </div>
-            </div>
-        </section>
-    
+                <div className="stats-title-container">
+                    <h2 className="stats-title">Stats</h2>
+                </div>
+            
+                <div className="avg-form">
+                    <AverageForm name={"Bill"} amount={getAverageBillAmount().toFixed(2)}/>
+                    <AverageForm name={"Tip"} amount={getAverageTipAmount().toFixed(2)}/>
+                    <AverageForm name={"Person"} amount={Math.round(getAveragePerson())}/>
+                </div>
+            </div> 
 
+
+             <div className={history.length >= 1 ? 'display-history' : 'do-not-display-history' }>
+                <div className="stats-title-container">
+                    <h2 className="stats-title">History</h2>
+                </div>
+                    <div className="history-section">
+                        <div className="history-form">
+                        {history.map((order, index) => (
+                        <HistoryElement index={index} 
+                        date={order.date}
+                        bill={order.bill} 
+                        tip={order.tip}
+                        persons={order.persons}/>     
+                        ))}
+                        </div>
+                    </div>
+            </div>                       
+        </section>
     )
 }
 
